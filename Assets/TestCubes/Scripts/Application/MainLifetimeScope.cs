@@ -16,15 +16,15 @@ namespace CubeTest.Application
         {
             builder.RegisterInstance(_sceneContext);
 
-            builder.Register(resolver =>
+            builder.Register(container =>
             {
-                SceneContext context = resolver.Resolve<SceneContext>();
+                SceneContext context = container.Resolve<SceneContext>();
                 return new CubeFactory<CubeInstance>(context.CubePrefab, context.ObjectsContainer);
             }, Lifetime.Singleton);
 
-            builder.Register(resolver =>
+            builder.Register(container =>
             {
-                SceneContext context = resolver.Resolve<SceneContext>();
+                SceneContext context = container.Resolve<SceneContext>();
                 return new CubeFactory<PlayerCubeInstance>(context.PlayerCubePrefab, context.ObjectsContainer);
             }, Lifetime.Singleton);
 
@@ -34,6 +34,8 @@ namespace CubeTest.Application
             builder.Register<PlayerManager>(Lifetime.Scoped).AsSelf().AsImplementedInterfaces();
             builder.Register<CubeManager>(Lifetime.Scoped).AsSelf().AsImplementedInterfaces();
             builder.Register<CubesConnectionManager>(Lifetime.Scoped).AsSelf().AsImplementedInterfaces();
+            builder.Register<BallsManager>(Lifetime.Scoped).AsSelf();
+
 
             builder.RegisterEntryPoint<MainEntryPoint>();
         }

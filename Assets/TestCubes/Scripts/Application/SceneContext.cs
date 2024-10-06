@@ -13,6 +13,9 @@ namespace CubeTest.Application
 
         public Transform PlayerSpawnPoint => _playerSpawnPoint;
         public Transform OtherCubeSpawnPoint => _otherCubeSpawnPoint;
+        public Camera Camera => _camera;
+        public GameObject Balls => _balls;
+        public LayerMask ClickLayerMask => _clickLayerMask;
 
 
         [Title("Injected prefabs")]
@@ -24,6 +27,10 @@ namespace CubeTest.Application
         [SerializeField, Required] private Transform _objectsContainer;
         [SerializeField, Required] private Transform _playerSpawnPoint;
         [SerializeField, Required] private Transform _otherCubeSpawnPoint;
+        [SerializeField, Required] private Camera _camera;
+        [SerializeField, Required] private GameObject _balls;
 
+        [Title("Settings")]
+        [SerializeField] private LayerMask _clickLayerMask;
     }
 }

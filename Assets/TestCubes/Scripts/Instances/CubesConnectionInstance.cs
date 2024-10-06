@@ -16,6 +16,8 @@ namespace CubeTest.Instances
 
         private ParticleSystem.MainModule[] _particleModules = new ParticleSystem.MainModule[OBJECTS_COUNT];
 
+        private bool _isShowing;
+
         private void Awake()
         {
             for (int i = 0; i < OBJECTS_COUNT; i++)
@@ -30,17 +32,22 @@ namespace CubeTest.Instances
 
         public void Show(bool show)
         {
+            if (_isShowing == show)
+                return;
+
             foreach(var particleSystem in _particles)
             {
                 if (show)
                 {
-                    if (!particleSystem.isPlaying) particleSystem.Play();
+                    particleSystem.Play();
                 }
                 else
                 {
-                    if (particleSystem.isPlaying) particleSystem.Stop();
+                    particleSystem.Stop();
                 }
             }
+
+            _isShowing = show;
         }
 
         public void UpdatePositions(Transform object1, Transform object2, float distance)

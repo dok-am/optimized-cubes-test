@@ -13,7 +13,8 @@ namespace CubeTest.Application
         public MainEntryPoint(PlayerManager playerManager, 
             CubeManager cubesManager, 
             SceneContext context, 
-            CubesConnectionManager cubesConnectionManager)
+            CubesConnectionManager cubesConnectionManager,
+            BallsManager ballsManager)
         {
             _playerManager = playerManager;
             _cubesManager = cubesManager;
