@@ -8,6 +8,7 @@ namespace CubeTest.Application
     {
         public CubeInstance CubePrefab => _cubePrefab;
         public PlayerCubeInstance PlayerCubePrefab => _playerCubePrefab;
+        public CubesConnectionInstance CubesConnectionPrefab => _cubesConnectionPrefab;
         public Transform ObjectsContainer => _objectsContainer;
 
         public Transform PlayerSpawnPoint => _playerSpawnPoint;
@@ -17,6 +18,7 @@ namespace CubeTest.Application
         [Title("Injected prefabs")]
         [SerializeField, Required] private CubeInstance _cubePrefab;
         [SerializeField, Required] private PlayerCubeInstance _playerCubePrefab;
+        [SerializeField, Required] private CubesConnectionInstance _cubesConnectionPrefab;
 
         [Title("Scene objects")]
         [SerializeField, Required] private Transform _objectsContainer;

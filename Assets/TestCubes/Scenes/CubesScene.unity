@@ -1165,6 +1165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cubePrefab: {fileID: 8653286568107534596, guid: 2958d1fd19ba4b84c906776d5eda4052, type: 3}
   _playerCubePrefab: {fileID: 4077211603730907606, guid: fa03d7a269f6ab44e810eb7646ec7412, type: 3}
+  _cubesConnectionPrefab: {fileID: 8344433685252859346, guid: a222475ae4eed31479b6500de85bcb6d, type: 3}
   _objectsContainer: {fileID: 1106052491}
   _playerSpawnPoint: {fileID: 1170779950}
   _otherCubeSpawnPoint: {fileID: 306252036}

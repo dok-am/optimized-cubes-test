@@ -6,20 +6,28 @@ namespace CubeTest.Application
     public class MainEntryPoint : IInitializable, IStartable
     {
         private PlayerManager _playerManager;
-        private CubesManager _cubesManager;
+        private CubeManager _cubesManager;
         private SceneContext _sceneContext;
+        private CubesConnectionManager _cubesConnectionManager;
 
-        public MainEntryPoint(PlayerManager playerManager, CubesManager cubesManager, SceneContext context)
+        public MainEntryPoint(PlayerManager playerManager, 
+            CubeManager cubesManager, 
+            SceneContext context, 
+            CubesConnectionManager cubesConnectionManager)
         {
             _playerManager = playerManager;
             _cubesManager = cubesManager;
             _sceneContext = context;
+            _cubesConnectionManager = cubesConnectionManager;
         }
 
         public void Initialize()
         {
-            _playerManager.OnPlayerSpawned += _cubesManager.RegisterCube;
-            _playerManager.OnPlayerDespawn += _cubesManager.UnregisterCube;
+            _playerManager.OnPlayerSpawned += _cubesConnectionManager.SetPlayerCube;
+            _playerManager.OnPlayerDespawn += _ => _cubesConnectionManager.SetPlayerCube(null);
+
+            _cubesManager.OnCubeSpawned += _cubesConnectionManager.SetOtherCubeInstance;
+            _cubesManager.OnCubeDespawn += _ => _cubesConnectionManager.SetOtherCubeInstance(null);
         }
 
         public void Start()

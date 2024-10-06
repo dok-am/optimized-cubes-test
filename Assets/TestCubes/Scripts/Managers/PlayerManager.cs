@@ -41,6 +41,7 @@ namespace CubeTest.Managers
                 _inputManager.OnMoveInput -= _player.SetInput;
                 OnPlayerDespawn?.Invoke(_player);
                 GameObject.Destroy(_player.gameObject);
+                _player = null;
             }
         }
 

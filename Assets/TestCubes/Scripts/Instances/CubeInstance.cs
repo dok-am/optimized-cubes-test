@@ -7,9 +7,13 @@ namespace CubeTest.Instances
     [RequireComponent(typeof(Rigidbody))]
     public class CubeInstance : MonoBehaviour, ICubeInstance
     {
+
         public Transform CubeTransform => _cachedTransform;
 
+        
         [SerializeField, ReadOnly] protected Transform _cachedTransform;
+
+
 
         private void OnValidate()
         {

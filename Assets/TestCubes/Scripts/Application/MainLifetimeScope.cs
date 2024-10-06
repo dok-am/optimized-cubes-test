@@ -32,7 +32,8 @@ namespace CubeTest.Application
             builder.RegisterEntryPoint<InputManager>();
 
             builder.Register<PlayerManager>(Lifetime.Scoped).AsSelf().AsImplementedInterfaces();
-            builder.Register<CubesManager>(Lifetime.Scoped).AsSelf().AsImplementedInterfaces();
+            builder.Register<CubeManager>(Lifetime.Scoped).AsSelf().AsImplementedInterfaces();
+            builder.Register<CubesConnectionManager>(Lifetime.Scoped).AsSelf().AsImplementedInterfaces();
 
             builder.RegisterEntryPoint<MainEntryPoint>();
         }
