@@ -1,10 +1,40 @@
+using CubeTest.Factories;
+using CubeTest.Instances;
+using CubeTest.Managers;
+using TriInspector;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-public class MainLifetimeScope : LifetimeScope
+namespace CubeTest.Application
 {
-    protected override void Configure(IContainerBuilder builder)
+    public class MainLifetimeScope : LifetimeScope
     {
-        builder.RegisterEntryPoint<MainEntryPoint>();
+        [SerializeField, Required] private SceneContext _sceneContext;
+
+        protected override void Configure(IContainerBuilder builder)
+        {
+            builder.RegisterInstance(_sceneContext);
+
+            builder.Register(resolver =>
+            {
+                SceneContext context = resolver.Resolve<SceneContext>();
+                return new CubeFactory<CubeInstance>(context.CubePrefab, context.ObjectsContainer);
+            }, Lifetime.Singleton);
+
+            builder.Register(resolver =>
+            {
+                SceneContext context = resolver.Resolve<SceneContext>();
+                return new CubeFactory<PlayerCubeInstance>(context.PlayerCubePrefab, context.ObjectsContainer);
+            }, Lifetime.Singleton);
+
+
+            builder.RegisterEntryPoint<InputManager>();
+
+            builder.Register<PlayerManager>(Lifetime.Scoped).AsSelf().AsImplementedInterfaces();
+            builder.Register<CubesManager>(Lifetime.Scoped).AsSelf().AsImplementedInterfaces();
+
+            builder.RegisterEntryPoint<MainEntryPoint>();
+        }
     }
 }
