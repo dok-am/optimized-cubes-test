@@ -1,6 +1,7 @@
 using CubeTest.Factories;
 using CubeTest.Instances;
 using CubeTest.Managers;
+using CubeTest.UI.Controllers;
 using TriInspector;
 using UnityEngine;
 using VContainer;
@@ -11,10 +12,12 @@ namespace CubeTest.Application
     public class MainLifetimeScope : LifetimeScope
     {
         [SerializeField, Required] private SceneContext _sceneContext;
+        [SerializeField, Required] private UIContext _uiContext;
 
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterInstance(_sceneContext);
+            builder.RegisterInstance(_uiContext);
 
             builder.Register(container =>
             {
@@ -36,6 +39,7 @@ namespace CubeTest.Application
             builder.Register<CubesConnectionManager>(Lifetime.Scoped).AsSelf().AsImplementedInterfaces();
             builder.Register<BallsManager>(Lifetime.Scoped).AsSelf();
 
+            builder.RegisterEntryPoint<DistanceViewController>();
 
             builder.RegisterEntryPoint<MainEntryPoint>();
         }

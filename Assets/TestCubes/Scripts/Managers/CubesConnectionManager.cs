@@ -9,6 +9,8 @@ namespace CubeTest.Managers
 {
     public class CubesConnectionManager : ITickable
     {
+        public float DistanceBetweenBalls { get; private set; }
+
         private const float MINIMAL_DISTANCE = 2.0f;
 
 
@@ -38,15 +40,19 @@ namespace CubeTest.Managers
             if (_playerCube == null || _otherCube == null)
                 return;
 
-            float sqrDistance = (_playerCube.CubeTransform.position - _otherCube.CubeTransform.position).sqrMagnitude;
+            DistanceBetweenBalls = 
+                (_playerCube.CubeTransform.position - _otherCube.CubeTransform.position).magnitude;
 
-            bool isClose = MINIMAL_DISTANCE * MINIMAL_DISTANCE > sqrDistance;
+            bool isClose = DistanceBetweenBalls < MINIMAL_DISTANCE;
             _connection.Show(isClose);
 
-            if (isClose)
-            {
-                _connection.UpdatePositions(_playerCube.CubeTransform, _otherCube.CubeTransform, Mathf.Sqrt(sqrDistance));
-            } 
+            if (!isClose)
+
+                return;
+
+           _connection.UpdatePositions(_playerCube.CubeTransform, 
+               _otherCube.CubeTransform, 
+               DistanceBetweenBalls);
         }
     }
 }
