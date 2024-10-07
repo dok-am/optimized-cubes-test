@@ -26,7 +26,7 @@ namespace CubeTest.UI.Controllers
 
         private void OnDistanceChanged(float distance)
         {
-            _connectionManager.SetDistance(distance);
+            _connectionManager.SetDistanceForced(distance);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿
-using CubeTest.Application;
+﻿using CubeTest.Application;
 using CubeTest.Instances;
 using CubeTest.Instances.Interfaces;
 using UnityEngine;
@@ -35,7 +34,7 @@ namespace CubeTest.Managers
             _otherCube = cube;
         }
 
-        public void SetDistance(float distance)
+        public void SetDistanceForced(float distance)
         {
             DistanceBetweenBalls = distance;
             Vector3 delta =  _otherCube.CubeTransform.position - _playerCube.CubeTransform.position;

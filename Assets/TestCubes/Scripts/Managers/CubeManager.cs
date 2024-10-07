@@ -18,9 +18,6 @@ namespace CubeTest.Managers
 
         public CubeManager(CubeFactory<CubeInstance> factory, SceneContext sceneContext)
         {
-           // _connection = GameObject.Instantiate(sceneContext.CubesConnectionPrefab, 
-           //     sceneContext.ObjectsContainer);
-
             _factory = factory;
         }
 
@@ -34,13 +31,12 @@ namespace CubeTest.Managers
 
         public void DespawnCube()
         {
-            if (_cube != null)
-            {
-                OnCubeDespawn?.Invoke(_cube);
-                GameObject.Destroy(_cube.gameObject);
-                _cube = null;
-            }
+            if (_cube == null)
+                return;
+            
+            OnCubeDespawn?.Invoke(_cube);
+            GameObject.Destroy(_cube.gameObject);
+            _cube = null;
         }
-        
     }
 }
