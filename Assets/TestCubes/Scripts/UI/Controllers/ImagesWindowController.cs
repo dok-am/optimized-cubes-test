@@ -46,7 +46,9 @@ namespace CubeTest.UI.Controllers
             foreach (ImageItem item in _items)
             {
                 _itemViews[item.Id] = _windowView.AddItem(item.Price);
-                _ = DownloadItem(item);
+                // Note: Forget() better to avoid warnings and make it clear we don't want to wait
+                DownloadItem(item).Forget();
+                
             }
         }
 
@@ -57,15 +59,16 @@ namespace CubeTest.UI.Controllers
 
         private async UniTask DownloadItem(ImageItem item)
         {
-            UnityWebRequest request = UnityWebRequestTexture.GetTexture(item.ImageUrl);
+            // Node: Requests should be disposed 
+            using UnityWebRequest request = UnityWebRequestTexture.GetTexture(item.ImageUrl);
             try
             {
                 await request.SendWebRequest();
 
-                if (request.result != UnityWebRequest.Result.Success)
-                    throw new Exception();
+                // Node: Checking for errors seems logical but if you look at UnityWebRequestAsyncOperationAwaiter you will see the exception throwing on any error (UnityWebRequestException)
             }
-            catch
+            // Node: it might be better to handle specific type of exceptions
+            catch(UnityWebRequestException ex)
             {
                 Debug.LogError($"Can't download {item.ImageUrl}, have to time for try again feature");
                 return;
@@ -75,7 +78,8 @@ namespace CubeTest.UI.Controllers
             item.SetTexture(((DownloadHandlerTexture)request.downloadHandler).texture);
 
             ImageItemView itemView = _itemViews[item.Id];
-            if (itemView != null)
+            // Note: Just reminder that we can cast Object to bool to check for aliveness (JS like)
+            if (itemView) 
                 itemView.SetData(item.Image, item.Price);
         }
     }

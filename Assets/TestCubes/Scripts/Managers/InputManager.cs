@@ -2,6 +2,7 @@
 using CubeTest.Instances.Interfaces;
 using CubeTest.Managers.Interfaces;
 using System;
+using System.Buffers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -45,16 +46,21 @@ namespace CubeTest.Managers
         {
             if (_isAboveUI)
                 return;
-
+            
             Ray cameraRay = _camera.ScreenPointToRay(Mouse.current.position.value);
             if (Physics.RaycastNonAlloc(cameraRay, _results, 100.0f, _clickLayerMask) == 0)
                 return;
+            
+            // Note: Using null-conditional operator('?.') may be dangerous, it bypasses unity alive checks
+            GameObject ridigbodyObject = _results[0].rigidbody ? _results[0].rigidbody.gameObject : null; // .rigidbody will be called two times, but it's ok in mouse click context
 
-            GameObject ridigbodyObject = _results[0].collider?.attachedRigidbody?.gameObject;
-
+            
             if (ridigbodyObject == null)
                 return;
-
+            
+            // Note: just remove two sequential null check (and ?. may execute on dead objects)
+            ridigbodyObject.SetActive(false);
+            
             IClickable clickable = ridigbodyObject.GetComponent<IClickable>();
 
             if (clickable == null)

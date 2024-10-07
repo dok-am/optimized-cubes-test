@@ -17,6 +17,9 @@ namespace CubeTest.Instances
 
         private void OnValidate()
         {
+            // Note: Good thing, but it breaks instantiating by AddComponent<CubeInstance>() 
+            // It make sense to create a dedicated function and call it from OnValidate and Awake
+            // It also may cause bugs if you copy that component on another object, it keeps the original references, and you can't change them except resetting component
             if (_cachedTransform == null)
                 _cachedTransform = transform;
             if (_cachedRigidbody == null)
