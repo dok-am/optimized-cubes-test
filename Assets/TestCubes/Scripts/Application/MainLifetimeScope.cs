@@ -40,6 +40,7 @@ namespace CubeTest.Application
             builder.Register<BallsManager>(Lifetime.Scoped).AsSelf();
 
             builder.RegisterEntryPoint<DistanceViewController>();
+            builder.RegisterEntryPoint<ImagesWindowController>();
 
             builder.RegisterEntryPoint<MainEntryPoint>();
         }

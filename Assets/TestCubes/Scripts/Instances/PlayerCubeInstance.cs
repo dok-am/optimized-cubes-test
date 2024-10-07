@@ -1,12 +1,11 @@
 using CubeTest.Instances.Interfaces;
-using System;
 using TriInspector;
 using UnityEngine;
 
 namespace CubeTest.Instances
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerCubeInstance : CubeInstance, IPlayerCubeInstance, IClickable
+    public class PlayerCubeInstance : CubeInstance, IPlayerCubeInstance
     {
         [SerializeField] private float _moveForce;
         [SerializeField, ReadOnly] private Rigidbody _rigidbody;

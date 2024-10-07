@@ -1,4 +1,5 @@
 using CubeTest.Managers;
+using CubeTest.UI.Controllers;
 using VContainer.Unity;
 
 namespace CubeTest.Application

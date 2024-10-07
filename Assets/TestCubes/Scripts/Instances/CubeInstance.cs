@@ -5,7 +5,7 @@ using UnityEngine;
 namespace CubeTest.Instances
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class CubeInstance : MonoBehaviour, ICubeInstance
+    public class CubeInstance : MonoBehaviour, ICubeInstance, IClickable
     {
 
         public Transform CubeTransform => _cachedTransform;
