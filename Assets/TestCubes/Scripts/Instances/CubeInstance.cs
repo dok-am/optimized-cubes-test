@@ -7,11 +7,11 @@ namespace CubeTest.Instances
     [RequireComponent(typeof(Rigidbody))]
     public class CubeInstance : MonoBehaviour, ICubeInstance, IClickable
     {
-
         public Transform CubeTransform => _cachedTransform;
+        public Rigidbody Rigidbody => _cachedRigidbody;
 
-        
         [SerializeField, ReadOnly] protected Transform _cachedTransform;
+        [SerializeField, ReadOnly] protected Rigidbody _cachedRigidbody;
 
 
 
@@ -19,6 +19,8 @@ namespace CubeTest.Instances
         {
             if (_cachedTransform == null)
                 _cachedTransform = transform;
+            if (_cachedRigidbody == null)
+                _cachedRigidbody = GetComponent<Rigidbody>();
         }
     }
 }

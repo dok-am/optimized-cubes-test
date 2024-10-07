@@ -35,6 +35,16 @@ namespace CubeTest.Managers
             _otherCube = cube;
         }
 
+        public void SetDistance(float distance)
+        {
+            DistanceBetweenBalls = distance;
+            Vector3 delta =  _otherCube.CubeTransform.position - _playerCube.CubeTransform.position;
+            delta = delta.normalized * DistanceBetweenBalls;
+            Vector3 newPosition = _playerCube.CubeTransform.position + delta;
+            newPosition.y = _playerCube.CubeTransform.position.y;
+            _otherCube.Rigidbody.position = newPosition;
+        }
+
         public void Tick()
         {
             if (_playerCube == null || _otherCube == null)

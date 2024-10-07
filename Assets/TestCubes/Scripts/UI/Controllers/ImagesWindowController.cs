@@ -73,7 +73,10 @@ namespace CubeTest.UI.Controllers
 
 
             item.SetTexture(((DownloadHandlerTexture)request.downloadHandler).texture);
-            _itemViews[item.Id].SetData(item.Image, item.Price);
+
+            ImageItemView itemView = _itemViews[item.Id];
+            if (itemView != null)
+                itemView.SetData(item.Image, item.Price);
         }
     }
 }
