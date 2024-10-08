@@ -50,7 +50,7 @@ namespace CubeTest.Managers
             if (Physics.RaycastNonAlloc(cameraRay, _results, 100.0f, _clickLayerMask) == 0)
                 return;
 
-            GameObject ridigbodyObject = _results[0].collider?.attachedRigidbody?.gameObject;
+            GameObject ridigbodyObject = _results[0].rigidbody ? _results[0].rigidbody.gameObject : null; ;
 
             if (ridigbodyObject == null)
                 return;

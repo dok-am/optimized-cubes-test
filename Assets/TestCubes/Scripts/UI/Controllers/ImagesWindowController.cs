@@ -46,7 +46,9 @@ namespace CubeTest.UI.Controllers
             foreach (ImageItem item in _items)
             {
                 _itemViews[item.Id] = _windowView.AddItem(item.Price);
-                _ = DownloadItem(item);
+
+                //TODO: It's better to be done in a separate layer
+                DownloadItem(item).Forget();
             }
         }
 
@@ -57,26 +59,27 @@ namespace CubeTest.UI.Controllers
 
         private async UniTask DownloadItem(ImageItem item)
         {
-            UnityWebRequest request = UnityWebRequestTexture.GetTexture(item.ImageUrl);
-            try
+            using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(item.ImageUrl))
             {
-                await request.SendWebRequest();
+                try
+                {
+                    await request.SendWebRequest();
 
-                if (request.result != UnityWebRequest.Result.Success)
-                    throw new Exception();
+                    if (request.result != UnityWebRequest.Result.Success)
+                        throw new Exception();
+                }
+                catch
+                {
+                    Debug.LogError($"Can't download {item.ImageUrl}, have to time for try again feature");
+                    return;
+                }
+
+                item.SetTexture(((DownloadHandlerTexture)request.downloadHandler).texture);
+
+                ImageItemView itemView = _itemViews[item.Id];
+                if (itemView != null)
+                    itemView.SetData(item.Image, item.Price);
             }
-            catch
-            {
-                Debug.LogError($"Can't download {item.ImageUrl}, have to time for try again feature");
-                return;
-            }
-
-
-            item.SetTexture(((DownloadHandlerTexture)request.downloadHandler).texture);
-
-            ImageItemView itemView = _itemViews[item.Id];
-            if (itemView != null)
-                itemView.SetData(item.Image, item.Price);
         }
     }
 }

@@ -69,12 +69,17 @@ namespace CubeTest.Instances
 
         private void OnValidate()
         {
+            Validate();
+        }
+
+        private void Validate()
+        {
             for (int i = 0; i < OBJECTS_COUNT; i++)
             {
-                var particleSystem = _particles[i];
+                var particleSystem = _cachedTransform[i];
                 if (particleSystem != null)
                 {
-                    _particleModules[i] = particleSystem.main;
+                    _cachedTransform[i] = particleSystem.transform;
                 }
             }
         }

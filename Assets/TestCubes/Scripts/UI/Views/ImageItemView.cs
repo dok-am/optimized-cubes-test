@@ -31,11 +31,14 @@ namespace CubeTest.UI.Views
             }
 
             _price.text = price.ToString("#,#", CultureInfo.InvariantCulture).Replace(',', ' ');
-            _price.autoSizeTextContainer = true;
-            _price.rectTransform.sizeDelta = _price.GetPreferredValues();
         }
 
         private void OnValidate()
+        {
+            Validate();
+        }
+
+        private void Validate()
         {
             if (_rectTransform == null)
                 _rectTransform = GetComponent<RectTransform>();

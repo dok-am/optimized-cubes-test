@@ -13,9 +13,17 @@ namespace CubeTest.Instances
         [SerializeField, ReadOnly] protected Transform _cachedTransform;
         [SerializeField, ReadOnly] protected Rigidbody _cachedRigidbody;
 
-
+        private void Awake()
+        {
+            Validate();
+        }
 
         private void OnValidate()
+        {
+            Validate();
+        }
+
+        private void Validate()
         {
             if (_cachedTransform == null)
                 _cachedTransform = transform;

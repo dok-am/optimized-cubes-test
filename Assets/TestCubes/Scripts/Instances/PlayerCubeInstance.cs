@@ -23,7 +23,17 @@ namespace CubeTest.Instances
             _rigidbody.AddForce(force);
         }
 
+        private void Awake()
+        {
+            Validate();
+        }
+
         private void OnValidate()
+        {
+            Validate();
+        }
+
+        private void Validate()
         {
             if (_rigidbody == null)
                 _rigidbody = GetComponent<Rigidbody>();

@@ -19,6 +19,6 @@ namespace CubeTest.UI.Views
             return item;
         }
 
-        //Really should implemente removing items and cleanup, but out of time
+        //TODO: Really should implement removing items and cleanup, but out of time
     }
 }
